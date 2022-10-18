@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\CarController;
+use App\Models\Car;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +21,11 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $cars = Car::all();
+    dd($cars);
+    return view('dashboard', compact('cars'));
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::resource('car', CarController::class);
 
 require __DIR__.'/auth.php';
